@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API REST - Gestion de Produits</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-server"></i> API REST - Gestion de Produits</h1>
+            <p class="subtitle">Interface interactive pour gérer vos produits</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Section Formulaire -->
+            <section class="form-section">
+                <h2 id="form-title">Ajouter un produit</h2>
+                <form id="product-form">
+                    <input type="hidden" id="product-id">
+                    
+                    <div class="form-group">
+                        <label for="name">Nom du produit *</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price">Prix *</label>
+                            <input type="number" id="price" step="0.01" min="0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stock">Stock</label>
+                            <input type="number" id="stock" min="0" value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Catégorie</label>
+                        <input type="text" id="category" value="Général">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="submit-btn">
+                            <i class="fas fa-plus"></i> Ajouter
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="cancel-btn" style="display: none;">
+                            <i class="fas fa-times"></i> Annuler
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Section Liste des produits -->
+            <section class="products-section">
+                <div class="section-header">
+                    <h2>Produits (<span id="product-count">0</span>)</h2>
+                    <button class="btn btn-icon" id="refresh-btn" title="Actualiser">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+                
+                <div id="loading" class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Chargement...
+                </div>
+                
+                <div id="products-container" class="products-grid"></div>
+                
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <i class="fas fa-box-open"></i>
+                    <p>Aucun produit disponible</p>
+                    <p class="hint">Ajoutez votre premier produit ci-dessus</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Modal de confirmation -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 id="modal-title">Confirmer la suppression</h3>
+                <p id="modal-message">Êtes-vous sûr de vouloir supprimer ce produit ?</p>
+                <div class="modal-actions">
+                    <button class="btn btn-danger" id="confirm-delete">Supprimer</button>
+                    <button class="btn btn-secondary" id="cancel-delete">Annuler</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast notifications -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
